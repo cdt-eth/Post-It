@@ -51,10 +51,10 @@ app.get("/posts/:id", async (req, res) => {
 app.put("/posts/:id", async (req, res) => {
   try {
     const { id } = req.params;
-    const { description } = req.body;
+    const { title, description } = req.body;
     const updatePost = await pool.query(
-      "UPDATE posts SET description = $1 WHERE post_id = $2",
-      [description, id]
+      "UPDATE posts SET title = $1, description = $2 WHERE post_id = $3",
+      [title, description, id]
     );
 
     res.json("Post was updated");
