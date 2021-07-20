@@ -9,55 +9,55 @@ app.use(cors());
 app.use(express.json()); // we can access `req.body`
 
 // _____ROUTES_____
-// Create Item
+// Create Post
 app.post("/posts", async (req, res) => {
   try {
-    const { description } = req.body;
-    const newItem = await pool.query(
-      "INSERT INTO item (description) VALUES($1) RETURNING *",
-      [description]
+    const { title, description } = req.body;
+    const newPost = await pool.query(
+      "INSERT INTO posts (title, description) VALUES($1,$2) RETURNING *",
+      [title, description]
     );
     console.log("req.body:", req.body);
-    res.json(newItem.rows[0]);
+    res.json(newPost.rows[0]);
   } catch (err) {
     console.error(err.message);
   }
 });
 
-// Get All Items
+// Get All Posts
 app.get("/posts", async (req, res) => {
   try {
-    const allPosts = await pool.query("SELECT * FROM item");
+    const allPosts = await pool.query("SELECT * FROM posts");
     res.json(allPosts.rows);
   } catch (err) {
     console.error(err.message);
   }
 });
 
-// Get A Specific Item
+// Get A Specific Post
 app.get("/posts/:id", async (req, res) => {
   try {
     const { id } = req.params;
-    const item = await pool.query("SELECT * FROM item WHERE item_id = $1", [
+    const post = await pool.query("SELECT * FROM post WHERE post_id = $1", [
       id,
     ]);
-    res.json(item.rows);
+    res.json(post.rows);
   } catch (err) {
     console.error(err.message);
   }
 });
 
-// Update A Specific Item
+// Update A Specific Post
 app.put("/posts/:id", async (req, res) => {
   try {
     const { id } = req.params;
     const { description } = req.body;
-    const updateItem = await pool.query(
-      "UPDATE item SET description = $1 WHERE item_id = $2",
+    const updatePost = await pool.query(
+      "UPDATE posts SET description = $1 WHERE post_id = $2",
       [description, id]
     );
 
-    res.json("Item was updated");
+    res.json("Post was updated");
   } catch (err) {
     console.error(err.message);
   }
@@ -67,11 +67,12 @@ app.put("/posts/:id", async (req, res) => {
 app.delete("/posts/:id", async (req, res) => {
   try {
     const { id } = req.params;
-    const deleteItem = await pool.query("DELETE FROM item WHERE item_id = $1", [
-      id,
-    ]);
+    const deletePosts = await pool.query(
+      "DELETE FROM posts WHERE post_id = $1",
+      [id]
+    );
 
-    res.json("Item was deleted");
+    res.json("Post was deleted");
   } catch (err) {
     console.error(err.message);
   }
