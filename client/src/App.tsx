@@ -1,14 +1,22 @@
-import React from 'react';
-import './App.css';
+import { ReactElement } from "react";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import "./App.css";
+import Create from "./pages/Create";
+import Posts from "./pages/Posts";
 
-function App() {
+const App = (): ReactElement => {
   return (
-    <div className="App">
-      <header className="App-header">
-        <h1>Setup</h1>
-      </header>
-    </div>
+    <Router>
+      <Switch>
+        <Route exact path="/">
+          <Posts />
+        </Route>
+        <Route path="/create">
+          <Create />
+        </Route>
+      </Switch>
+    </Router>
   );
-}
+};
 
 export default App;
