@@ -1,9 +1,12 @@
 import { ReactElement } from "react";
+import { Typography } from "@material-ui/core";
 
 const Posts = (): ReactElement => {
   return (
     <div>
-      <h1>Posts page</h1>
+      <Typography variant="h2" color="secondary" align="center">
+        Posts go here
+      </Typography>
     </div>
   );
 };
