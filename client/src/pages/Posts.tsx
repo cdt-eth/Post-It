@@ -1,14 +1,15 @@
 import { useState, useEffect, ReactElement } from "react";
-import { Grid, Typography, Paper } from "@material-ui/core";
+import { Grid, Typography } from "@material-ui/core";
+import Post from "../components/Post";
 
-interface Post {
+export interface IPosts {
   post_id: number;
   title: string;
   description: string;
 }
 
 const Posts = (): ReactElement => {
-  const [posts, setPosts] = useState<Post[]>([]);
+  const [posts, setPosts] = useState<IPosts[]>([]);
 
   useEffect(() => {
     fetch("http://localhost:5000/posts")
@@ -25,9 +26,7 @@ const Posts = (): ReactElement => {
       <Grid container>
         {posts.map((post) => (
           <Grid item key={post.post_id} xs={12} md={6} lg={4}>
-            <Paper>
-              {post.title} | {post.description}
-            </Paper>
+            <Post post={post} />
           </Grid>
         ))}
       </Grid>
