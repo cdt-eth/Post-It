@@ -9,15 +9,6 @@ import {
 import KeyboardArrowRightIcon from "@material-ui/icons/KeyboardArrowRight";
 
 const useStyles = makeStyles({
-  // btn: {
-  //   // fontSize: 25,
-  //   backgroundColor: "#00A5B6",
-  //   transition: "0.3s",
-
-  //   "&:hover": {
-  //     backgroundColor: "#6EC1E4",
-  //   },
-  // },
   field: {
     marginTop: 20,
     marginBottom: 20,
