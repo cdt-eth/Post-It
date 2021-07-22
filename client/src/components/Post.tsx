@@ -7,7 +7,7 @@ import {
 } from "@material-ui/core";
 import { DeleteOutlined } from "@material-ui/icons";
 import { ReactElement } from "react";
-import { IPosts } from "../pages/Posts";
+import { IPosts } from "../pages/Posts/Posts";
 
 interface PostData {
   post: IPosts;

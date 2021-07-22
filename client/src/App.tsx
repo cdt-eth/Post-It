@@ -1,8 +1,8 @@
 import { ReactElement } from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import "./App.css";
-import Create from "./pages/Create";
-import Posts from "./pages/Posts";
+import Create from "./pages/Create/Create";
+import Posts from "./pages/Posts/Posts";
 import { createTheme, ThemeProvider } from "@material-ui/core";
 import { purple } from "@material-ui/core/colors";
 
