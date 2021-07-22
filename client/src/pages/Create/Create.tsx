@@ -1,4 +1,4 @@
-import { useState, ReactElement } from "react";
+import { useState, ReactElement, useEffect } from "react";
 import {
   makeStyles,
   Typography,
@@ -21,7 +21,17 @@ const Create = (): ReactElement => {
   const [titleError, setTitleError] = useState<boolean>(false);
   const [description, setDescription] = useState<string>("");
   const [descriptionError, setDescriptionError] = useState<boolean>(false);
+  const [isDisabled, setIsDisabled] = useState<boolean>(true);
   const classes = useStyles();
+
+  // const handleChange = (e: React.SyntheticEvent) => {
+
+  //   setDescription(e.target.value);
+
+  //   if (title && description) {
+  //     setIsDisabled(false);
+  //   }
+  // };
 
   const handleSubmit = (e: React.SyntheticEvent) => {
     e.preventDefault();
@@ -38,13 +48,22 @@ const Create = (): ReactElement => {
     }
   };
 
+  useEffect(() => {
+    if (title && description) setIsDisabled(false);
+  }, [title, description]);
+
   return (
     <Container>
       <Typography variant="h6" color="textSecondary" gutterBottom>
         Create a new note
       </Typography>
 
-      <form noValidate autoComplete="off" onSubmit={handleSubmit}>
+      <form
+        noValidate
+        autoComplete="off"
+        onSubmit={handleSubmit}
+        data-testid="form"
+      >
         <TextField
           onChange={(e) => setTitle(e.target.value)}
           className={classes.field}
@@ -53,9 +72,11 @@ const Create = (): ReactElement => {
           color="secondary"
           fullWidth
           required
+          inputProps={{ "data-testid": "title" }}
           error={titleError}
         />
         <TextField
+          // onChange={handleChange}
           onChange={(e) => setDescription(e.target.value)}
           className={classes.field}
           label="Description"
@@ -65,6 +86,7 @@ const Create = (): ReactElement => {
           rows={4}
           fullWidth
           required
+          inputProps={{ "data-testid": "description" }}
           error={descriptionError}
         />
 
@@ -72,6 +94,8 @@ const Create = (): ReactElement => {
           type="submit"
           color="secondary"
           variant="contained"
+          disabled={isDisabled}
+          data-testid="submit-button"
           endIcon={<KeyboardArrowRightIcon />}
         >
           Submit
