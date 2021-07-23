@@ -3,6 +3,7 @@ import {
   CardContent,
   CardHeader,
   IconButton,
+  makeStyles,
   Typography,
 } from "@material-ui/core";
 import { DeleteOutlined } from "@material-ui/icons";
@@ -12,12 +13,25 @@ import { IPosts } from "../../pages/Posts/Posts";
 interface PostData {
   post: IPosts;
   handleDelete: (id: number) => void;
+  title?: string;
 }
 
+const useStyles = makeStyles({
+  test: {
+    border: (post: IPosts) => {
+      if (post.title == null) {
+        return "1px solid red";
+      }
+    },
+  },
+});
+
 const Post = ({ post, handleDelete }: PostData): ReactElement => {
+  const classes = useStyles(post);
+
   return (
     <div>
-      <Card elevation={3}>
+      <Card elevation={3} className={classes.test}>
         <CardHeader
           color="textSecondary"
           action={
