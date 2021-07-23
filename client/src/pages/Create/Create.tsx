@@ -24,15 +24,6 @@ const Create = (): ReactElement => {
   const [isDisabled, setIsDisabled] = useState<boolean>(true);
   const classes = useStyles();
 
-  // const handleChange = (e: React.SyntheticEvent) => {
-
-  //   setDescription(e.target.value);
-
-  //   if (title && description) {
-  //     setIsDisabled(false);
-  //   }
-  // };
-
   const handleSubmit = (e: React.SyntheticEvent) => {
     e.preventDefault();
 
