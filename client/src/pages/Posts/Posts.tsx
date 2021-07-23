@@ -28,7 +28,7 @@ const Posts = (): ReactElement => {
 
   return (
     <div>
-      <Grid container>
+      <Grid container spacing={3}>
         {posts.map((post) => (
           <Grid item key={post.post_id} xs={12} md={6} lg={4}>
             <Post post={post} handleDelete={handleDelete} />
