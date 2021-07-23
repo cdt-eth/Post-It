@@ -17,23 +17,29 @@ type Children = {
 
 const drawerWidth = 240;
 
-const useStyles = makeStyles({
-  root: {
-    display: "flex",
-  },
-  page: {
-    background: "#f9f9f9",
-    width: "100%",
-  },
-  drawer: {
-    width: drawerWidth,
-  },
-  drawerPaper: {
-    width: drawerWidth,
-  },
-  active: {
-    background: "#f4f4f4",
-  },
+const useStyles = makeStyles((theme) => {
+  return {
+    root: {
+      display: "flex",
+    },
+    page: {
+      background: "#f9f9f9",
+      width: "100%",
+      padding: theme.spacing(3),
+    },
+    drawer: {
+      width: drawerWidth,
+    },
+    drawerPaper: {
+      width: drawerWidth,
+    },
+    active: {
+      background: "#f4f4f4",
+    },
+    title: {
+      padding: theme.spacing(2),
+    },
+  };
 });
 
 const Layout = ({ children }: Children): ReactElement => {
@@ -64,7 +70,9 @@ const Layout = ({ children }: Children): ReactElement => {
         classes={{ paper: classes.drawerPaper }}
       >
         <div>
-          <Typography variant="h5">Post it!</Typography>
+          <Typography variant="h5" className={classes.title}>
+            Post it!
+          </Typography>
         </div>
 
         {/* Menu Links */}
