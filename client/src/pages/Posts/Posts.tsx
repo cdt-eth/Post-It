@@ -17,6 +17,15 @@ const Posts = (): ReactElement => {
       .then((data) => setPosts(data));
   }, []);
 
+  const handleDelete = async (id: number) => {
+    await fetch("http://localhost:5000/posts/" + id, {
+      method: "DELETE",
+    });
+
+    const newPosts = posts.filter((post) => post.post_id !== id);
+    setPosts(newPosts);
+  };
+
   return (
     <div>
       <Typography variant="h2" color="secondary" align="center">
@@ -26,7 +35,7 @@ const Posts = (): ReactElement => {
       <Grid container>
         {posts.map((post) => (
           <Grid item key={post.post_id} xs={12} md={6} lg={4}>
-            <Post post={post} />
+            <Post post={post} handleDelete={handleDelete} />
           </Grid>
         ))}
       </Grid>

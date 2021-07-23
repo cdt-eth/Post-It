@@ -46,9 +46,6 @@ const Create = (): ReactElement => {
       } catch (err) {
         console.error(err);
       }
-
-      console.log("title:", title);
-      console.log("description:", description);
     }
   };
 

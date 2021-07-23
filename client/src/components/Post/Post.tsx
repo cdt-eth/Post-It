@@ -11,16 +11,17 @@ import { IPosts } from "../../pages/Posts/Posts";
 
 interface PostData {
   post: IPosts;
+  handleDelete: (id: number) => void;
 }
 
-const Post = ({ post }: PostData): ReactElement => {
+const Post = ({ post, handleDelete }: PostData): ReactElement => {
   return (
     <div>
       <Card elevation={3}>
         <CardHeader
           color="textSecondary"
           action={
-            <IconButton>
+            <IconButton onClick={() => handleDelete(post.post_id)}>
               <DeleteOutlined />
             </IconButton>
           }
