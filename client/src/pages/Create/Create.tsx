@@ -24,7 +24,7 @@ const Create = (): ReactElement => {
   const [isDisabled, setIsDisabled] = useState<boolean>(true);
   const classes = useStyles();
 
-  const handleSubmit = (e: React.SyntheticEvent) => {
+  const handleSubmit = async (e: React.SyntheticEvent) => {
     e.preventDefault();
 
     setTitleError(false);
@@ -34,6 +34,19 @@ const Create = (): ReactElement => {
     if (description === "") setDescriptionError(true);
 
     if (title && description) {
+      try {
+        const body = { title, description };
+        const response = fetch("http://localhost:5000/posts", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(body),
+        });
+
+        console.log("response", response);
+      } catch (err) {
+        console.error(err);
+      }
+
       console.log("title:", title);
       console.log("description:", description);
     }
@@ -67,7 +80,6 @@ const Create = (): ReactElement => {
           error={titleError}
         />
         <TextField
-          // onChange={handleChange}
           onChange={(e) => setDescription(e.target.value)}
           className={classes.field}
           label="Description"
