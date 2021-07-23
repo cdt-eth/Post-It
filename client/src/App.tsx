@@ -5,6 +5,7 @@ import Create from "./pages/Create/Create";
 import Posts from "./pages/Posts/Posts";
 import { createTheme, ThemeProvider } from "@material-ui/core";
 import { purple } from "@material-ui/core/colors";
+import Layout from "./components/Layout/Layout";
 
 const myTheme = createTheme({
   palette: {
@@ -26,14 +27,16 @@ const App = (): ReactElement => {
   return (
     <ThemeProvider theme={myTheme}>
       <Router>
-        <Switch>
-          <Route exact path="/">
-            <Posts />
-          </Route>
-          <Route path="/create">
-            <Create />
-          </Route>
-        </Switch>
+        <Layout>
+          <Switch>
+            <Route exact path="/">
+              <Posts />
+            </Route>
+            <Route path="/create">
+              <Create />
+            </Route>
+          </Switch>
+        </Layout>
       </Router>
     </ThemeProvider>
   );
