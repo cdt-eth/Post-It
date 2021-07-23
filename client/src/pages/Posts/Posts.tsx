@@ -1,6 +1,6 @@
 import { useState, useEffect, ReactElement } from "react";
 import { Grid, Typography } from "@material-ui/core";
-import Post from "../../components/Post";
+import Post from "../../components/Post/Post";
 
 export interface IPosts {
   post_id: number;
