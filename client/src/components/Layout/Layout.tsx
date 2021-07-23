@@ -9,6 +9,7 @@ import {
   ListItemText,
   AppBar,
   Toolbar,
+  Avatar,
 } from "@material-ui/core";
 import { AddCircleOutlineOutlined, SubjectOutlined } from "@material-ui/icons";
 import { useHistory, useLocation } from "react-router-dom";
@@ -49,6 +50,9 @@ const useStyles = makeStyles((theme) => {
     date: {
       flexGrow: 1,
     },
+    avatar: {
+      marginLeft: theme.spacing(2),
+    },
   };
 });
 
@@ -79,6 +83,7 @@ const Layout = ({ children }: Children): ReactElement => {
             Today is {format(new Date(), `MMMM do, Y`)}
           </Typography>
           <Typography>Christian</Typography>
+          <Avatar src="/me.jpg" className={classes.avatar} />
         </Toolbar>
       </AppBar>
 
