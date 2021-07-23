@@ -1,5 +1,5 @@
 import { useState, useEffect, ReactElement } from "react";
-import { Grid, Typography } from "@material-ui/core";
+import { Grid } from "@material-ui/core";
 import Post from "../../components/Post/Post";
 
 export interface IPosts {
@@ -28,10 +28,6 @@ const Posts = (): ReactElement => {
 
   return (
     <div>
-      <Typography variant="h2" color="secondary" align="center">
-        Posts go here
-      </Typography>
-
       <Grid container>
         {posts.map((post) => (
           <Grid item key={post.post_id} xs={12} md={6} lg={4}>
