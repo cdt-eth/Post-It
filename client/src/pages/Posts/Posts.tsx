@@ -1,6 +1,7 @@
 import { useState, useEffect, ReactElement } from "react";
-import { Grid } from "@material-ui/core";
+import { Container } from "@material-ui/core";
 import Post from "../../components/Post/Post";
+import Masonry from "react-masonry-css";
 
 export interface IPosts {
   post_id: number;
@@ -26,16 +27,26 @@ const Posts = (): ReactElement => {
     setPosts(newPosts);
   };
 
+  const breakpoints = {
+    default: 3,
+    1100: 2,
+    700: 1,
+  };
+
   return (
-    <div>
-      <Grid container spacing={3}>
+    <Container>
+      <Masonry
+        breakpointCols={breakpoints}
+        className="my-masonry-grid"
+        columnClassName="my-masonry-grid_column"
+      >
         {posts.map((post) => (
-          <Grid item key={post.post_id} xs={12} md={6} lg={4}>
+          <div key={post.post_id}>
             <Post post={post} handleDelete={handleDelete} />
-          </Grid>
+          </div>
         ))}
-      </Grid>
-    </div>
+      </Masonry>
+    </Container>
   );
 };
 
