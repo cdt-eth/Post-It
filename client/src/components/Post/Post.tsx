@@ -6,19 +6,28 @@ import {
   IconButton,
   makeStyles,
   Typography,
+  TextField,
+  Button,
 } from "@material-ui/core";
 import { DeleteOutlined } from "@material-ui/icons";
 import EditOutlinedIcon from "@material-ui/icons/EditOutlined";
-import { ReactElement } from "react";
+import { ReactElement, useEffect } from "react";
 import { IPosts } from "../../pages/Posts/Posts";
+import KeyboardArrowRightIcon from "@material-ui/icons/KeyboardArrowRight";
 
 interface PostData {
   post: IPosts;
-  handleEdit: (id: number) => void;
+  handleEdit: (post: IPosts) => void;
   handleDelete: (id: number) => void;
+  handleSubmit: any;
   title?: string;
   open: boolean;
   setOpen: any;
+  updatedTitle: string;
+  updatedDescription: string;
+  setUpdatedTitle: any;
+  setUpdatedDescription: any;
+  currentPost: any;
 }
 
 const useStyles = makeStyles((theme) => ({
@@ -41,6 +50,11 @@ const useStyles = makeStyles((theme) => ({
     marginLeft: "-150px",
     marginTop: "-150px",
   },
+  field: {
+    marginTop: 20,
+    marginBottom: 20,
+    display: "block",
+  },
 }));
 
 const Post = ({
@@ -48,17 +62,67 @@ const Post = ({
   handleDelete,
   handleEdit,
   open,
+  currentPost,
+  updatedTitle,
+  updatedDescription,
+  handleSubmit,
+  setUpdatedTitle,
+  setUpdatedDescription,
   setOpen,
 }: PostData): ReactElement => {
   const classes = useStyles(post);
 
+  useEffect(() => {
+    console.log("title:", updatedTitle);
+    console.log("descr:", updatedDescription);
+  }, [updatedTitle, updatedDescription]);
+
   const body = (
     <div className={classes.paper}>
-      <h2 id="simple-modal-title">Text in a modal</h2>
-      <p id="simple-modal-description">
-        Duis mollis, est non commodo luctus, nisi erat porttitor ligula.
-      </p>
-      {/* <Post /> */}
+      <form
+        noValidate
+        autoComplete="off"
+        onSubmit={handleSubmit}
+        data-testid="form"
+      >
+        <TextField
+          onChange={(e) => setUpdatedTitle(e.target.value)}
+          className={classes.field}
+          label="Title"
+          variant="outlined"
+          color="secondary"
+          fullWidth
+          value={currentPost && updatedTitle}
+          required
+          inputProps={{ "data-testid": "title" }}
+          // error={titleError}
+        />
+        <TextField
+          value={currentPost && updatedDescription}
+          onChange={(e) => setUpdatedDescription(e.target.value)}
+          className={classes.field}
+          label="Description"
+          variant="outlined"
+          color="secondary"
+          multiline
+          rows={4}
+          fullWidth
+          required
+          inputProps={{ "data-testid": "description" }}
+          // error={descriptionError}
+        />
+
+        <Button
+          type="submit"
+          color="secondary"
+          variant="contained"
+          // disabled={isDisabled}
+          data-testid="submit-button"
+          endIcon={<KeyboardArrowRightIcon />}
+        >
+          Udpate
+        </Button>
+      </form>
     </div>
   );
 
@@ -73,7 +137,7 @@ const Post = ({
           color="textSecondary"
           action={
             <>
-              <IconButton onClick={() => handleEdit(post.post_id)}>
+              <IconButton onClick={() => handleEdit(post)}>
                 <EditOutlinedIcon />
               </IconButton>
               <IconButton onClick={() => handleDelete(post.post_id)}>
@@ -95,4 +159,5 @@ const Post = ({
     </div>
   );
 };
+
 export default Post;

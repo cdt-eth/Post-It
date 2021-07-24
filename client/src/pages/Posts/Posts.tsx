@@ -12,24 +12,39 @@ export interface IPosts {
 const Posts = (): ReactElement => {
   const [posts, setPosts] = useState<IPosts[]>([]);
   const [open, setOpen] = useState<boolean>(false);
+  const [currentPost, setCurrentPost] = useState<any>();
+  const [updatedTitle, setUpdatedTitle] = useState<string>("");
+  const [updatedDescription, setUpdatedDescription] = useState<string>("");
 
   useEffect(() => {
     fetch("http://localhost:5000/posts")
       .then((res) => res.json())
       .then((data) => setPosts(data));
-  }, []);
+  }, [posts]);
 
-  const handleEdit = async (id: number) => {
-    console.log("id", id);
+  const handleEdit = async (post: IPosts) => {
+    console.log("post", post);
+    setCurrentPost(post);
+    setUpdatedTitle(post.title);
+    setUpdatedDescription(post.description);
     setOpen(true);
+  };
 
-    await fetch("http://localhost:5000/posts/" + id, {
+  const handleSubmit = async (e: any) => {
+    e.preventDefault();
+
+    console.log("UPDATE:", updatedTitle, " | ", updatedDescription);
+
+    setOpen(false);
+
+    await fetch("http://localhost:5000/posts/" + currentPost.post_id, {
       method: "PUT",
-      // method: "GET",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        title: updatedTitle,
+        description: updatedDescription,
+      }),
     });
-
-    // const newPosts = posts.filter((post) => post.post_id !== id);
-    // setPosts(newPosts);
   };
 
   const handleDelete = async (id: number) => {
@@ -60,7 +75,13 @@ const Posts = (): ReactElement => {
               post={post}
               handleDelete={handleDelete}
               handleEdit={handleEdit}
+              handleSubmit={handleSubmit}
+              setUpdatedTitle={setUpdatedTitle}
+              setUpdatedDescription={setUpdatedDescription}
               open={open}
+              currentPost={currentPost}
+              updatedTitle={updatedTitle}
+              updatedDescription={updatedDescription}
               setOpen={setOpen}
             />
           </div>
