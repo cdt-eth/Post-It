@@ -42,6 +42,8 @@ const Create = (): ReactElement => {
           body: JSON.stringify(body),
         });
 
+        setTitle("");
+        setDescription("");
         console.log("response", response);
       } catch (err) {
         console.error(err);
@@ -72,11 +74,13 @@ const Create = (): ReactElement => {
           variant="outlined"
           color="secondary"
           fullWidth
+          value={title}
           required
           inputProps={{ "data-testid": "title" }}
           error={titleError}
         />
         <TextField
+          value={description}
           onChange={(e) => setDescription(e.target.value)}
           className={classes.field}
           label="Description"
