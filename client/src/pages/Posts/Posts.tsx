@@ -11,12 +11,26 @@ export interface IPosts {
 
 const Posts = (): ReactElement => {
   const [posts, setPosts] = useState<IPosts[]>([]);
+  const [open, setOpen] = useState<boolean>(false);
 
   useEffect(() => {
     fetch("http://localhost:5000/posts")
       .then((res) => res.json())
       .then((data) => setPosts(data));
   }, []);
+
+  const handleEdit = async (id: number) => {
+    console.log("id", id);
+    setOpen(true);
+
+    await fetch("http://localhost:5000/posts/" + id, {
+      method: "PUT",
+      // method: "GET",
+    });
+
+    // const newPosts = posts.filter((post) => post.post_id !== id);
+    // setPosts(newPosts);
+  };
 
   const handleDelete = async (id: number) => {
     await fetch("http://localhost:5000/posts/" + id, {
@@ -42,7 +56,13 @@ const Posts = (): ReactElement => {
       >
         {posts.map((post) => (
           <div key={post.post_id}>
-            <Post post={post} handleDelete={handleDelete} />
+            <Post
+              post={post}
+              handleDelete={handleDelete}
+              handleEdit={handleEdit}
+              open={open}
+              setOpen={setOpen}
+            />
           </div>
         ))}
       </Masonry>
