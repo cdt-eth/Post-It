@@ -95,7 +95,6 @@ const Post = ({
           value={currentPost && updatedTitle}
           required
           inputProps={{ "data-testid": "title" }}
-          // error={titleError}
         />
         <TextField
           value={currentPost && updatedDescription}
@@ -109,7 +108,6 @@ const Post = ({
           fullWidth
           required
           inputProps={{ "data-testid": "description" }}
-          // error={descriptionError}
         />
 
         <Button
