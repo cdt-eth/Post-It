@@ -36,7 +36,7 @@ jobs:
         run: |
           git config --global user.name Christian Turner
           git config --global user.email christian.turner@hey.com
-          git remote set-url origin https://github.com/christiandavidturner/Post-It
+          git remote set-url origin https://github.com/christiandavidturner/Post-It/client
           npm run deploy
         env:
           user_name: "github-actions[bot]"
