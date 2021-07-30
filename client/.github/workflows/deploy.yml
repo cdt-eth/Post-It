@@ -11,16 +11,29 @@ jobs:
         node-version: [12.x]
     steps:
       - uses: actions/checkout@v1
+
       - name: Use Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v1
         with:
           node-version: ${{ matrix.node-version }}
+
       - name: Install Packages
         run: npm install
+
+      - name: Run the tests and generate coverage report
+        run: npm test -- --coverage
+
       - name: Build Page
         run: npm run build
-      - name: Deploy to GitHub Pages
-        uses: peaceiris/actions-gh-pages@v3
-        with:
-          deploy_key: ${{ secrets.ACTIONS_DEPLOY_KEY }}
-          publish_dir: ./build
+
+      - name: Deploy
+        run: |
+          git config --global user.name Christian Turner
+          git config --global user.email christian.turner@hey.com
+          git remote set-url origin https://github.com/christiandavidturner/Post-It
+          npm run deploy
+        env:
+          user_name: "github-actions[bot]"
+          user_email: "github-actions[bot]@users.noreply.github.com"
+          github_token: ${{ secrets.ACTIONS_DEPLOY_ACCESS_TOKEN }}
+          repository: ${{ github.repository }}
