@@ -29,10 +29,10 @@ const App = (): ReactElement => {
       <Router>
         <Layout>
           <Switch>
-            <Route exact path="/">
+            <Route exact path="/Post-It">
               <Posts />
             </Route>
-            <Route path="/create">
+            <Route path="/Post-It/create">
               <Create />
             </Route>
           </Switch>

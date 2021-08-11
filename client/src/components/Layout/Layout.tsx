@@ -65,7 +65,7 @@ const Layout = ({ children }: Children): ReactElement => {
     {
       text: "My Posts",
       icon: <SubjectOutlined color="secondary" />,
-      path: "/Post-It/",
+      path: "/Post-It",
     },
     {
       text: "Create Note",
