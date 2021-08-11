@@ -65,12 +65,12 @@ const Layout = ({ children }: Children): ReactElement => {
     {
       text: "My Posts",
       icon: <SubjectOutlined color="secondary" />,
-      path: "/",
+      path: "/Post-It/",
     },
     {
       text: "Create Note",
       icon: <AddCircleOutlineOutlined color="secondary" />,
-      path: "/create",
+      path: "/Post-It/create",
     },
   ];
 
